@@ -8,7 +8,7 @@ You must synthesize the following source materials:
 
 - `./{output-folder}/1-techstack.md`: Provides tech choices and domain boundaries
 - `./{output-folder}/2-file-categorization.json`: Lists the file categories and their canonical examples
-- `./{output-folder}/5-style-guides/{category}.md`: Describes unique conventions for each file category
+- `./{output-folder}/5-style-guide.md`: Describes unique conventions per file category and cross-cutting patterns
 - `./{output-folder}/3-architectural-domains.json`: Defines how domains like `ui`, `routing`, `data-layer`, etc. are implemented, along with constraints and required patterns
 
 ---
@@ -34,7 +34,7 @@ For each category in `2-file-categorization.json`:
 
 - Explain what it is
 - List 1–2 representative file examples
-- Summarize key conventions based on its corresponding `5-style-guides/{category}.md`
+- Summarize key conventions based on its corresponding section in `5-style-guide.md`
 
 ---
 
@@ -90,3 +90,62 @@ Only use categories and file types present in this project.
 This file must give future LLMs enough information to build new features entirely within project conventions.
 
 To clarify further, if `{final_output_file}` already exists, overwrite it.
+
+---
+
+## Context-Limit Checkpoint
+
+After writing `{final_output_file}`, pause and confirm you still have sufficient context to continue before proceeding to `OVERVIEW.md`.
+
+If you are approaching context limits:
+1. Note in `./{output-folder}/6-checkpoint.md` that `{final_output_file}` is complete and `OVERVIEW.md` has not yet been written.
+2. Stop. A new session can resume by reading this checkpoint and continuing from `OVERVIEW.md`.
+
+Do not produce a partial `OVERVIEW.md` — either write it fully or skip it and log the reason.
+
+---
+
+## Second Output: `OVERVIEW.md` (root of the repository)
+
+Before writing, check whether `OVERVIEW.md` already exists at the repository root. If it does, surface the following message to the user and wait for their explicit response before proceeding:
+
+> ⚠️ `OVERVIEW.md` already exists at the repository root. Proceeding will overwrite it. Reply **yes** to overwrite, or provide an alternative file path.
+
+Do not overwrite or create the file until the user has confirmed. If the user provides an alternative path, write the file there instead. If the file does not exist, proceed without prompting.
+
+This is a human-readable overview of the codebase, written for engineers, product managers, and stakeholders. It synthesises findings from the three analytical perspectives applied across this prompt chain.
+
+### Structure
+
+```markdown
+# Project Overview
+
+## Table of Contents
+...
+
+## System Architecture
+<!-- Software Architect perspective: system design, component boundaries, data flows, scalability -->
+<!-- Embed the Mermaid diagram from `./{output-folder}/3-architecture-diagram.md` here -->
+
+## Codebase Structure
+<!-- Software Developer perspective: implementation patterns, conventions, complexity, technical debt -->
+
+## Product & Features
+<!-- Product Manager perspective: user-facing features, user flows, alignment with business goals -->
+<!-- Include a Mermaid sequence or flowchart for a key user journey if it aids understanding -->
+
+## Actionable Insights & Open Questions
+<!-- Findings and unresolved questions surfaced across all three perspectives -->
+<!-- Frame each item as either an insight (something notable) or a question (something unresolved) -->
+```
+
+### Requirements
+
+- Written in Markdown
+- Include at least one Mermaid diagram (use the architecture diagram from step 3; add a user flow diagram if it adds value)
+- Base all content on the analysis from steps 1–5 — do not invent features or assumptions
+- Where something is ambiguous, surface it as an open question rather than guessing
+
+---
+
+After writing both output files, read the contents of [./7-validate.md](./7-validate.md) and proceed accordingly with {output-folder} and {final_output_file} as parameters.
