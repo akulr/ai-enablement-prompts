@@ -16,7 +16,7 @@ For every category in `./{output-folder}/2-file-categorization.json`:
 
 Flag any category that is missing or whose conventions were omitted.
 
-### 2. Domain Coverage
+#### 2. Domain Coverage
 
 For every domain in `./{output-folder}/3-architectural-domains.json`:
 
@@ -26,7 +26,7 @@ Flag any domain whose constraints are absent or incomplete.
 
 If step 4 produced a `## Skipped Domains` section in any domain file, list those domains explicitly as unanalyzed and note that the instruction file may be incomplete for those areas.
 
-### 3. Example Prompt Validity
+#### 3. Example Prompt Validity
 
 Verify that the **Example Prompt Usage** section in `{final_output_file}` only references:
 
@@ -35,7 +35,7 @@ Verify that the **Example Prompt Usage** section in `{final_output_file}` only r
 
 Flag any invented file types or paths not supported by the codebase analysis.
 
-### 4. Invented Content
+#### 4. Invented Content
 
 Scan `{final_output_file}` for any patterns, constraints, or conventions that cannot be traced back to:
 

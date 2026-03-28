@@ -93,9 +93,25 @@ To clarify further, if `{final_output_file}` already exists, overwrite it.
 
 ---
 
+## Context-Limit Checkpoint
+
+After writing `{final_output_file}`, pause and confirm you still have sufficient context to continue before proceeding to `OVERVIEW.md`.
+
+If you are approaching context limits:
+1. Note in `./{output-folder}/6-checkpoint.md` that `{final_output_file}` is complete and `OVERVIEW.md` has not yet been written.
+2. Stop. A new session can resume by reading this checkpoint and continuing from `OVERVIEW.md`.
+
+Do not produce a partial `OVERVIEW.md` — either write it fully or skip it and log the reason.
+
+---
+
 ## Second Output: `OVERVIEW.md` (root of the repository)
 
-After writing `{final_output_file}`, produce a second file at the **root of the repository**: `OVERVIEW.md`.
+Before writing, check whether `OVERVIEW.md` already exists at the repository root. If it does, surface the following message to the user and wait for their explicit response before proceeding:
+
+> ⚠️ `OVERVIEW.md` already exists at the repository root. Proceeding will overwrite it. Reply **yes** to overwrite, or provide an alternative file path.
+
+Do not overwrite or create the file until the user has confirmed. If the user provides an alternative path, write the file there instead. If the file does not exist, proceed without prompting.
 
 This is a human-readable overview of the codebase, written for engineers, product managers, and stakeholders. It synthesises findings from the three analytical perspectives applied across this prompt chain.
 
@@ -129,7 +145,6 @@ This is a human-readable overview of the codebase, written for engineers, produc
 - Include at least one Mermaid diagram (use the architecture diagram from step 3; add a user flow diagram if it adds value)
 - Base all content on the analysis from steps 1–5 — do not invent features or assumptions
 - Where something is ambiguous, surface it as an open question rather than guessing
-- If `OVERVIEW.md` already exists at the root, overwrite it
 
 ---
 
